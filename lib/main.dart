@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:epoQatapp/core/database/database_helper.dart';
 import 'package:epoQatapp/core/theme/app_theme.dart';
+import 'package:epoQatapp/core/theme/theme_provider.dart';
 import 'package:epoQatapp/data/games_data.dart';
 import 'package:epoQatapp/games/idea_generator/repositories/idea_generator_repository.dart';
 import 'package:epoQatapp/models/game.dart';
 import 'package:epoQatapp/games/idea_generator/idea_generator_page.dart';
 import 'package:epoQatapp/games/idea_generator/bloc/idea_generator_bloc.dart';
+import 'package:epoQatapp/settings/settings_page.dart';
 import 'games/emotion_wheel.dart';
 
 // Import for Windows/Linux/macOS
@@ -44,22 +47,28 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: ideaGeneratorRepository),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<IdeaGeneratorBloc>(
-            create: (context) => IdeaGeneratorBloc(repository: ideaGeneratorRepository),
+      child: ChangeNotifierProvider(
+        create: (_) => ThemeProvider(),
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, _) => MultiBlocProvider(
+            providers: [
+              BlocProvider<IdeaGeneratorBloc>(
+                create: (context) => IdeaGeneratorBloc(repository: ideaGeneratorRepository),
+              ),
+            ],
+            child: MaterialApp(
+              title: 'epoQatapp',
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: themeProvider.themeMode,
+              routes: {
+                '/emotion-wheel': (context) => const EmotionWheelGame(),
+                '/idea-generator': (context) => const IdeaGeneratorPage(),
+                '/settings': (context) => const SettingsPage(),
+              },
+              home: HomeScreen(),
+            ),
           ),
-        ],
-        child: MaterialApp(
-          title: 'epoQatapp',
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system, // Uses device theme settings
-          routes: {
-            '/emotion-wheel': (context) => const EmotionWheelGame(),
-            '/idea-generator': (context) => const IdeaGeneratorPage(),
-          },
-          home: HomeScreen(),
         ),
       ),
     );
@@ -103,6 +112,11 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/settings');
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Image(image: AssetImage('assets/icon/icon.png'), width: 24, height: 24),

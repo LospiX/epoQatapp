@@ -272,8 +272,9 @@ class _IdeaGeneratorSettingsPageState extends State<IdeaGeneratorSettingsPage> w
                 await widget.repository.addElement(currentType, value);
                 if (mounted) {
                   Navigator.of(context).pop();
-                  setState(() {});
                   _newElementController.clear();
+                  // Reload the elements list
+                  await _loadElements();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('${currentType.displayName} aggiunto')),
                   );
