@@ -9,11 +9,13 @@ part 'game_element.freezed.dart';
 class GameElement with _$GameElement {
   const factory GameElement({
     required String id,
-    required ElementType type,
+    required int categoryId,
+    String? categoryName,
     String? value,
   }) = _GameElement;
 }
 
+// Kept for backward compatibility during transition; new code uses IdeaCategory
 enum ElementType {
   character,
   trait,

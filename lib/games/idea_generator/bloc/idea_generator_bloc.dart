@@ -1,20 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:epoQatapp/games/idea_generator/bloc/idea_generator_event.dart';
 import 'package:epoQatapp/games/idea_generator/bloc/idea_generator_state.dart';
 import 'package:epoQatapp/games/idea_generator/repositories/idea_generator_repository.dart';
 import '../models/game_element.dart';
+import '../models/idea_category.dart';
 import 'dart:math';
-
-// part 'idea_generator_bloc.freezed.dart';
-// part 'idea_generator_event.dart';
-// part 'idea_generator_state.dart';
 
 class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
   final IdeaGeneratorRepository repository;
+  List<IdeaCategory> _categories = [];
 
   IdeaGeneratorBloc({required this.repository}) : super(const IdeaGeneratorState.initial()) {
+    on<LoadCategories>(_onLoadCategories);
     on<ElementAdded>(_onElementAdded);
     on<ElementRemoved>(_onElementRemoved);
     on<GenerateValues>(_onGenerateValues);
@@ -23,26 +21,55 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
     on<ClearAllElements>(_onClearAllElements);
   }
 
+  Future<void> _onLoadCategories(LoadCategories event, Emitter<IdeaGeneratorState> emit) async {
+    _categories = await repository.getCategories();
+    state.when(
+      initial: () => emit(
+        IdeaGeneratorState.loaded(
+          categories: _categories,
+          elements: [],
+          canGenerate: false,
+        ),
+      ),
+      loaded: (categories, elements, canGenerate) => emit(
+        IdeaGeneratorState.loaded(
+          categories: _categories,
+          elements: elements,
+          canGenerate: canGenerate,
+        ),
+      ),
+      loading: () => emit(
+        IdeaGeneratorState.loaded(
+          categories: _categories,
+          elements: [],
+          canGenerate: false,
+        ),
+      ),
+    );
+  }
+
   void _onElementAdded(ElementAdded event, Emitter<IdeaGeneratorState> emit) {
     state.when(
       initial: () => emit(
         IdeaGeneratorState.loaded(
+          categories: _categories,
           elements: [
             GameElement(
               id: UniqueKey().toString(),
-              type: event.type,
+              categoryId: event.categoryId,
             ),
           ],
           canGenerate: true,
         ),
       ),
-      loaded: (elements, canGenerate) => emit(
+      loaded: (categories, elements, canGenerate) => emit(
         IdeaGeneratorState.loaded(
+          categories: categories,
           elements: [
             ...elements,
             GameElement(
               id: UniqueKey().toString(),
-              type: event.type,
+              categoryId: event.categoryId,
             ),
           ],
           canGenerate: true,
@@ -54,19 +81,18 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
 
   Future<void> _onGenerateValues(GenerateValues event, Emitter<IdeaGeneratorState> emit) async {
     await state.whenOrNull(
-      loaded: (elements, _) async {
-        // First emit a loading state
+      loaded: (categories, elements, _) async {
         emit(const IdeaGeneratorState.loading());
         
         final updatedElements = <GameElement>[];
         
-        // Process each element
         for (final element in elements) {
-          final value = await _generateRandomValue(element.type);
+          final value = await _generateRandomValueByCategoryId(element.categoryId);
           updatedElements.add(element.copyWith(value: value));
         }
 
         emit(IdeaGeneratorState.loaded(
+          categories: categories,
           elements: updatedElements,
           canGenerate: true,
         ));
@@ -76,12 +102,12 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
 
   Future<void> _onRegenerateSingle(RegenerateSingle event, Emitter<IdeaGeneratorState> emit) async {
     await state.whenOrNull(
-      loaded: (elements, canGenerate) async {
+      loaded: (categories, elements, canGenerate) async {
         final updatedElements = <GameElement>[];
         
         for (final element in elements) {
           if (element.id == event.elementId) {
-            final value = await _generateRandomValue(element.type);
+            final value = await _generateRandomValueByCategoryId(element.categoryId);
             updatedElements.add(element.copyWith(value: value));
           } else {
             updatedElements.add(element);
@@ -89,6 +115,7 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
         }
 
         emit(IdeaGeneratorState.loaded(
+          categories: categories,
           elements: updatedElements,
           canGenerate: canGenerate,
         ));
@@ -98,12 +125,13 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
 
   void _onElementRemoved(ElementRemoved event, Emitter<IdeaGeneratorState> emit) {
     state.whenOrNull(
-      loaded: (elements, canGenerate) {
+      loaded: (categories, elements, canGenerate) {
         final updatedElements = elements.where(
           (e) => e.id != event.elementId
         ).toList();
         
         emit(IdeaGeneratorState.loaded(
+          categories: categories,
           elements: updatedElements,
           canGenerate: canGenerate,
         ));
@@ -120,9 +148,9 @@ class IdeaGeneratorBloc extends Bloc<IdeaGeneratorEvent, IdeaGeneratorState> {
     emit(const IdeaGeneratorState.initial());
   }
 
-  Future<String> _generateRandomValue(ElementType type) async {
+  Future<String> _generateRandomValueByCategoryId(int categoryId) async {
     final random = Random();
-    final options = await repository.getOptionsForType(type);
+    final options = await repository.getOptionsByCategoryId(categoryId);
     if (options.isEmpty) {
       return "Nessun elemento disponibile";
     }

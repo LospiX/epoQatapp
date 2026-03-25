@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GameElement {
   String get id => throw _privateConstructorUsedError;
-  ElementType get type => throw _privateConstructorUsedError;
+  int get categoryId => throw _privateConstructorUsedError;
+  String? get categoryName => throw _privateConstructorUsedError;
   String? get value => throw _privateConstructorUsedError;
 
   /// Create a copy of GameElement
@@ -33,7 +34,7 @@ abstract class $GameElementCopyWith<$Res> {
           GameElement value, $Res Function(GameElement) then) =
       _$GameElementCopyWithImpl<$Res, GameElement>;
   @useResult
-  $Res call({String id, ElementType type, String? value});
+  $Res call({String id, int categoryId, String? categoryName, String? value});
 }
 
 /// @nodoc
@@ -52,7 +53,8 @@ class _$GameElementCopyWithImpl<$Res, $Val extends GameElement>
   @override
   $Res call({
     Object? id = null,
-    Object? type = null,
+    Object? categoryId = null,
+    Object? categoryName = freezed,
     Object? value = freezed,
   }) {
     return _then(_value.copyWith(
@@ -60,10 +62,14 @@ class _$GameElementCopyWithImpl<$Res, $Val extends GameElement>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ElementType,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryName: freezed == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -80,7 +86,7 @@ abstract class _$$GameElementImplCopyWith<$Res>
       __$$GameElementImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, ElementType type, String? value});
+  $Res call({String id, int categoryId, String? categoryName, String? value});
 }
 
 /// @nodoc
@@ -97,7 +103,8 @@ class __$$GameElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? type = null,
+    Object? categoryId = null,
+    Object? categoryName = freezed,
     Object? value = freezed,
   }) {
     return _then(_$GameElementImpl(
@@ -105,10 +112,14 @@ class __$$GameElementImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ElementType,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryName: freezed == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -120,18 +131,24 @@ class __$$GameElementImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GameElementImpl implements _GameElement {
-  const _$GameElementImpl({required this.id, required this.type, this.value});
+  const _$GameElementImpl(
+      {required this.id,
+      required this.categoryId,
+      this.categoryName,
+      this.value});
 
   @override
   final String id;
   @override
-  final ElementType type;
+  final int categoryId;
+  @override
+  final String? categoryName;
   @override
   final String? value;
 
   @override
   String toString() {
-    return 'GameElement(id: $id, type: $type, value: $value)';
+    return 'GameElement(id: $id, categoryId: $categoryId, categoryName: $categoryName, value: $value)';
   }
 
   @override
@@ -140,12 +157,16 @@ class _$GameElementImpl implements _GameElement {
         (other.runtimeType == runtimeType &&
             other is _$GameElementImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.type, type) || other.type == type) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.categoryName, categoryName) ||
+                other.categoryName == categoryName) &&
             (identical(other.value, value) || other.value == value));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, type, value);
+  int get hashCode =>
+      Object.hash(runtimeType, id, categoryId, categoryName, value);
 
   /// Create a copy of GameElement
   /// with the given fields replaced by the non-null parameter values.
@@ -159,13 +180,16 @@ class _$GameElementImpl implements _GameElement {
 abstract class _GameElement implements GameElement {
   const factory _GameElement(
       {required final String id,
-      required final ElementType type,
+      required final int categoryId,
+      final String? categoryName,
       final String? value}) = _$GameElementImpl;
 
   @override
   String get id;
   @override
-  ElementType get type;
+  int get categoryId;
+  @override
+  String? get categoryName;
   @override
   String? get value;
 

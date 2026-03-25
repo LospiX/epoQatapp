@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$IdeaGeneratorEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -28,7 +29,8 @@ mixin _$IdeaGeneratorEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -38,7 +40,8 @@ mixin _$IdeaGeneratorEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -49,6 +52,7 @@ mixin _$IdeaGeneratorEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -59,6 +63,7 @@ mixin _$IdeaGeneratorEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -69,6 +74,7 @@ mixin _$IdeaGeneratorEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -102,12 +108,147 @@ class _$IdeaGeneratorEventCopyWithImpl<$Res, $Val extends IdeaGeneratorEvent>
 }
 
 /// @nodoc
+abstract class _$$LoadCategoriesImplCopyWith<$Res> {
+  factory _$$LoadCategoriesImplCopyWith(_$LoadCategoriesImpl value,
+          $Res Function(_$LoadCategoriesImpl) then) =
+      __$$LoadCategoriesImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadCategoriesImplCopyWithImpl<$Res>
+    extends _$IdeaGeneratorEventCopyWithImpl<$Res, _$LoadCategoriesImpl>
+    implements _$$LoadCategoriesImplCopyWith<$Res> {
+  __$$LoadCategoriesImplCopyWithImpl(
+      _$LoadCategoriesImpl _value, $Res Function(_$LoadCategoriesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of IdeaGeneratorEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LoadCategoriesImpl implements LoadCategories {
+  const _$LoadCategoriesImpl();
+
+  @override
+  String toString() {
+    return 'IdeaGeneratorEvent.loadCategories()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadCategoriesImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
+    required TResult Function(String elementId) elementRemoved,
+    required TResult Function() generateValues,
+    required TResult Function(String elementId) regenerateSingle,
+    required TResult Function() navigateToSettings,
+    required TResult Function() clearAllElements,
+  }) {
+    return loadCategories();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
+    TResult? Function(String elementId)? elementRemoved,
+    TResult? Function()? generateValues,
+    TResult? Function(String elementId)? regenerateSingle,
+    TResult? Function()? navigateToSettings,
+    TResult? Function()? clearAllElements,
+  }) {
+    return loadCategories?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
+    TResult Function(String elementId)? elementRemoved,
+    TResult Function()? generateValues,
+    TResult Function(String elementId)? regenerateSingle,
+    TResult Function()? navigateToSettings,
+    TResult Function()? clearAllElements,
+    required TResult orElse(),
+  }) {
+    if (loadCategories != null) {
+      return loadCategories();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
+    required TResult Function(ElementAdded value) elementAdded,
+    required TResult Function(ElementRemoved value) elementRemoved,
+    required TResult Function(GenerateValues value) generateValues,
+    required TResult Function(RegenerateSingle value) regenerateSingle,
+    required TResult Function(NavigateToSettings value) navigateToSettings,
+    required TResult Function(ClearAllElements value) clearAllElements,
+  }) {
+    return loadCategories(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
+    TResult? Function(ElementAdded value)? elementAdded,
+    TResult? Function(ElementRemoved value)? elementRemoved,
+    TResult? Function(GenerateValues value)? generateValues,
+    TResult? Function(RegenerateSingle value)? regenerateSingle,
+    TResult? Function(NavigateToSettings value)? navigateToSettings,
+    TResult? Function(ClearAllElements value)? clearAllElements,
+  }) {
+    return loadCategories?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
+    TResult Function(ElementAdded value)? elementAdded,
+    TResult Function(ElementRemoved value)? elementRemoved,
+    TResult Function(GenerateValues value)? generateValues,
+    TResult Function(RegenerateSingle value)? regenerateSingle,
+    TResult Function(NavigateToSettings value)? navigateToSettings,
+    TResult Function(ClearAllElements value)? clearAllElements,
+    required TResult orElse(),
+  }) {
+    if (loadCategories != null) {
+      return loadCategories(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadCategories implements IdeaGeneratorEvent {
+  const factory LoadCategories() = _$LoadCategoriesImpl;
+}
+
+/// @nodoc
 abstract class _$$ElementAddedImplCopyWith<$Res> {
   factory _$$ElementAddedImplCopyWith(
           _$ElementAddedImpl value, $Res Function(_$ElementAddedImpl) then) =
       __$$ElementAddedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ElementType type});
+  $Res call({int categoryId});
 }
 
 /// @nodoc
@@ -123,13 +264,13 @@ class __$$ElementAddedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
+    Object? categoryId = null,
   }) {
     return _then(_$ElementAddedImpl(
-      null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ElementType,
+      null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -137,14 +278,14 @@ class __$$ElementAddedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ElementAddedImpl implements ElementAdded {
-  const _$ElementAddedImpl(this.type);
+  const _$ElementAddedImpl(this.categoryId);
 
   @override
-  final ElementType type;
+  final int categoryId;
 
   @override
   String toString() {
-    return 'IdeaGeneratorEvent.elementAdded(type: $type)';
+    return 'IdeaGeneratorEvent.elementAdded(categoryId: $categoryId)';
   }
 
   @override
@@ -152,11 +293,12 @@ class _$ElementAddedImpl implements ElementAdded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementAddedImpl &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, type);
+  int get hashCode => Object.hash(runtimeType, categoryId);
 
   /// Create a copy of IdeaGeneratorEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -169,33 +311,36 @@ class _$ElementAddedImpl implements ElementAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
     required TResult Function() navigateToSettings,
     required TResult Function() clearAllElements,
   }) {
-    return elementAdded(type);
+    return elementAdded(categoryId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
     TResult? Function()? navigateToSettings,
     TResult? Function()? clearAllElements,
   }) {
-    return elementAdded?.call(type);
+    return elementAdded?.call(categoryId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -204,7 +349,7 @@ class _$ElementAddedImpl implements ElementAdded {
     required TResult orElse(),
   }) {
     if (elementAdded != null) {
-      return elementAdded(type);
+      return elementAdded(categoryId);
     }
     return orElse();
   }
@@ -212,6 +357,7 @@ class _$ElementAddedImpl implements ElementAdded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -225,6 +371,7 @@ class _$ElementAddedImpl implements ElementAdded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -238,6 +385,7 @@ class _$ElementAddedImpl implements ElementAdded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -254,9 +402,9 @@ class _$ElementAddedImpl implements ElementAdded {
 }
 
 abstract class ElementAdded implements IdeaGeneratorEvent {
-  const factory ElementAdded(final ElementType type) = _$ElementAddedImpl;
+  const factory ElementAdded(final int categoryId) = _$ElementAddedImpl;
 
-  ElementType get type;
+  int get categoryId;
 
   /// Create a copy of IdeaGeneratorEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -335,7 +483,8 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -348,7 +497,8 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -361,7 +511,8 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -378,6 +529,7 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -391,6 +543,7 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -404,6 +557,7 @@ class _$ElementRemovedImpl implements ElementRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -472,7 +626,8 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -485,7 +640,8 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -498,7 +654,8 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -515,6 +672,7 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -528,6 +686,7 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -541,6 +700,7 @@ class _$GenerateValuesImpl implements GenerateValues {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -630,7 +790,8 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -643,7 +804,8 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -656,7 +818,8 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -673,6 +836,7 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -686,6 +850,7 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -699,6 +864,7 @@ class _$RegenerateSingleImpl implements RegenerateSingle {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -768,7 +934,8 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -781,7 +948,8 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -794,7 +962,8 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -811,6 +980,7 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -824,6 +994,7 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -837,6 +1008,7 @@ class _$NavigateToSettingsImpl implements NavigateToSettings {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,
@@ -897,7 +1069,8 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ElementType type) elementAdded,
+    required TResult Function() loadCategories,
+    required TResult Function(int categoryId) elementAdded,
     required TResult Function(String elementId) elementRemoved,
     required TResult Function() generateValues,
     required TResult Function(String elementId) regenerateSingle,
@@ -910,7 +1083,8 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ElementType type)? elementAdded,
+    TResult? Function()? loadCategories,
+    TResult? Function(int categoryId)? elementAdded,
     TResult? Function(String elementId)? elementRemoved,
     TResult? Function()? generateValues,
     TResult? Function(String elementId)? regenerateSingle,
@@ -923,7 +1097,8 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ElementType type)? elementAdded,
+    TResult Function()? loadCategories,
+    TResult Function(int categoryId)? elementAdded,
     TResult Function(String elementId)? elementRemoved,
     TResult Function()? generateValues,
     TResult Function(String elementId)? regenerateSingle,
@@ -940,6 +1115,7 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(LoadCategories value) loadCategories,
     required TResult Function(ElementAdded value) elementAdded,
     required TResult Function(ElementRemoved value) elementRemoved,
     required TResult Function(GenerateValues value) generateValues,
@@ -953,6 +1129,7 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadCategories value)? loadCategories,
     TResult? Function(ElementAdded value)? elementAdded,
     TResult? Function(ElementRemoved value)? elementRemoved,
     TResult? Function(GenerateValues value)? generateValues,
@@ -966,6 +1143,7 @@ class _$ClearAllElementsImpl implements ClearAllElements {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadCategories value)? loadCategories,
     TResult Function(ElementAdded value)? elementAdded,
     TResult Function(ElementRemoved value)? elementRemoved,
     TResult Function(GenerateValues value)? generateValues,

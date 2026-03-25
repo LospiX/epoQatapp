@@ -20,7 +20,8 @@ mixin _$IdeaGeneratorState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GameElement> elements, bool canGenerate)
+    required TResult Function(List<IdeaCategory> categories,
+            List<GameElement> elements, bool canGenerate)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,14 +29,18 @@ mixin _$IdeaGeneratorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult? Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +132,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GameElement> elements, bool canGenerate)
+    required TResult Function(List<IdeaCategory> categories,
+            List<GameElement> elements, bool canGenerate)
         loaded,
   }) {
     return initial();
@@ -138,7 +144,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult? Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
   }) {
     return initial?.call();
   }
@@ -148,7 +156,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -239,7 +249,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GameElement> elements, bool canGenerate)
+    required TResult Function(List<IdeaCategory> categories,
+            List<GameElement> elements, bool canGenerate)
         loaded,
   }) {
     return loading();
@@ -250,7 +261,9 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult? Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
   }) {
     return loading?.call();
   }
@@ -260,7 +273,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -314,7 +329,10 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<GameElement> elements, bool canGenerate});
+  $Res call(
+      {List<IdeaCategory> categories,
+      List<GameElement> elements,
+      bool canGenerate});
 }
 
 /// @nodoc
@@ -330,10 +348,15 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? categories = null,
     Object? elements = null,
     Object? canGenerate = null,
   }) {
     return _then(_$LoadedImpl(
+      categories: null == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<IdeaCategory>,
       elements: null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -350,8 +373,19 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(
-      {required final List<GameElement> elements, required this.canGenerate})
-      : _elements = elements;
+      {required final List<IdeaCategory> categories,
+      required final List<GameElement> elements,
+      required this.canGenerate})
+      : _categories = categories,
+        _elements = elements;
+
+  final List<IdeaCategory> _categories;
+  @override
+  List<IdeaCategory> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categories);
+  }
 
   final List<GameElement> _elements;
   @override
@@ -366,7 +400,7 @@ class _$LoadedImpl implements _Loaded {
 
   @override
   String toString() {
-    return 'IdeaGeneratorState.loaded(elements: $elements, canGenerate: $canGenerate)';
+    return 'IdeaGeneratorState.loaded(categories: $categories, elements: $elements, canGenerate: $canGenerate)';
   }
 
   @override
@@ -374,6 +408,8 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._elements, _elements) &&
             (identical(other.canGenerate, canGenerate) ||
                 other.canGenerate == canGenerate));
@@ -381,7 +417,10 @@ class _$LoadedImpl implements _Loaded {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_elements), canGenerate);
+      runtimeType,
+      const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(_elements),
+      canGenerate);
 
   /// Create a copy of IdeaGeneratorState
   /// with the given fields replaced by the non-null parameter values.
@@ -396,10 +435,11 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<GameElement> elements, bool canGenerate)
+    required TResult Function(List<IdeaCategory> categories,
+            List<GameElement> elements, bool canGenerate)
         loaded,
   }) {
-    return loaded(elements, canGenerate);
+    return loaded(categories, elements, canGenerate);
   }
 
   @override
@@ -407,9 +447,11 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult? Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
   }) {
-    return loaded?.call(elements, canGenerate);
+    return loaded?.call(categories, elements, canGenerate);
   }
 
   @override
@@ -417,11 +459,13 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<GameElement> elements, bool canGenerate)? loaded,
+    TResult Function(List<IdeaCategory> categories, List<GameElement> elements,
+            bool canGenerate)?
+        loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(elements, canGenerate);
+      return loaded(categories, elements, canGenerate);
     }
     return orElse();
   }
@@ -463,9 +507,11 @@ class _$LoadedImpl implements _Loaded {
 
 abstract class _Loaded implements IdeaGeneratorState {
   const factory _Loaded(
-      {required final List<GameElement> elements,
+      {required final List<IdeaCategory> categories,
+      required final List<GameElement> elements,
       required final bool canGenerate}) = _$LoadedImpl;
 
+  List<IdeaCategory> get categories;
   List<GameElement> get elements;
   bool get canGenerate;
 
