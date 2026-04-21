@@ -28,7 +28,7 @@ class DatabaseHelper {
     // Open the database with appropriate options for each platform
     return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -77,6 +77,33 @@ class DatabaseHelper {
         );
       }
     }
+    if (oldVersion < 5) {
+      await _createSequencesTables(db);
+    }
+  }
+
+  Future<void> _createSequencesTables(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS sequences (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        description TEXT NOT NULL DEFAULT '',
+        sort_order INTEGER NOT NULL DEFAULT 0,
+        created_at INTEGER NOT NULL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS sequence_steps (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sequence_id INTEGER NOT NULL REFERENCES sequences(id) ON DELETE CASCADE,
+        position INTEGER NOT NULL,
+        name TEXT NOT NULL DEFAULT '',
+        duration_seconds INTEGER NOT NULL,
+        repetitions INTEGER NOT NULL,
+        rep_end_sound TEXT,
+        step_end_sound TEXT
+      )
+    ''');
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -105,6 +132,9 @@ class DatabaseHelper {
     
     // Insert default data
     await _insertDefaultData(db);
+
+    // Sequences tables (new in v5)
+    await _createSequencesTables(db);
   }
 
   // Default categories definition
@@ -597,5 +627,92 @@ class DatabaseHelper {
         'category_id': catId,
       });
     }
+  }
+
+  // ─── Sequences CRUD ───
+
+  Future<List<Map<String, dynamic>>> getSequences() async {
+    final db = await database;
+    return db.query('sequences', orderBy: 'sort_order ASC, id ASC');
+  }
+
+  Future<Map<String, dynamic>?> getSequenceById(int id) async {
+    final db = await database;
+    final rows = await db.query('sequences', where: 'id = ?', whereArgs: [id]);
+    return rows.isEmpty ? null : rows.first;
+  }
+
+  Future<List<Map<String, dynamic>>> getStepsForSequence(int sequenceId) async {
+    final db = await database;
+    return db.query(
+      'sequence_steps',
+      where: 'sequence_id = ?',
+      whereArgs: [sequenceId],
+      orderBy: 'position ASC',
+    );
+  }
+
+  Future<int> insertSequence({
+    required String name,
+    required String description,
+    required List<Map<String, dynamic>> steps,
+  }) async {
+    final db = await database;
+    return db.transaction<int>((txn) async {
+      final maxOrder = Sqflite.firstIntValue(
+        await txn.rawQuery('SELECT MAX(sort_order) FROM sequences'),
+      ) ?? -1;
+      final sequenceId = await txn.insert('sequences', {
+        'name': name,
+        'description': description,
+        'sort_order': maxOrder + 1,
+        'created_at': DateTime.now().millisecondsSinceEpoch,
+      });
+      for (int i = 0; i < steps.length; i++) {
+        final step = Map<String, dynamic>.from(steps[i]);
+        step.remove('id');
+        step['sequence_id'] = sequenceId;
+        step['position'] = i;
+        await txn.insert('sequence_steps', step);
+      }
+      return sequenceId;
+    });
+  }
+
+  Future<void> updateSequence({
+    required int id,
+    required String name,
+    required String description,
+    required List<Map<String, dynamic>> steps,
+  }) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn.update(
+        'sequences',
+        {'name': name, 'description': description},
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+      await txn.delete(
+        'sequence_steps',
+        where: 'sequence_id = ?',
+        whereArgs: [id],
+      );
+      for (int i = 0; i < steps.length; i++) {
+        final step = Map<String, dynamic>.from(steps[i]);
+        step.remove('id');
+        step['sequence_id'] = id;
+        step['position'] = i;
+        await txn.insert('sequence_steps', step);
+      }
+    });
+  }
+
+  Future<void> deleteSequence(int id) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn.delete('sequence_steps', where: 'sequence_id = ?', whereArgs: [id]);
+      await txn.delete('sequences', where: 'id = ?', whereArgs: [id]);
+    });
   }
 }

@@ -11,6 +11,8 @@ import 'package:epoQatapp/games/idea_generator/repositories/idea_generator_repos
 import 'package:epoQatapp/models/game.dart';
 import 'package:epoQatapp/games/idea_generator/idea_generator_page.dart';
 import 'package:epoQatapp/games/idea_generator/bloc/idea_generator_bloc.dart';
+import 'package:epoQatapp/games/sequences/repositories/sequence_repository.dart';
+import 'package:epoQatapp/games/sequences/sequences_list_page.dart';
 import 'package:epoQatapp/settings/settings_page.dart';
 import 'games/emotion_wheel.dart';
 
@@ -42,10 +44,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Create the repository instance once
     final ideaGeneratorRepository = IdeaGeneratorRepository();
-    
+    final sequenceRepository = SequenceRepository();
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: ideaGeneratorRepository),
+        RepositoryProvider.value(value: sequenceRepository),
       ],
       child: ChangeNotifierProvider(
         create: (_) => ThemeProvider(),
@@ -64,6 +68,7 @@ class MyApp extends StatelessWidget {
               routes: {
                 '/emotion-wheel': (context) => const EmotionWheelGame(),
                 '/idea-generator': (context) => const IdeaGeneratorPage(),
+                '/sequences': (context) => const SequencesListPage(),
                 '/settings': (context) => const SettingsPage(),
               },
               home: HomeScreen(),
@@ -86,7 +91,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Image(image: AssetImage('assets/icon/icon.png'), width: 36, height: 36),
+            const Image(image: AssetImage('assets/icon/icon.png'), width: 36, height: 36),
             const SizedBox(width: 8),
             const Text('epoQatapp', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
           ],

@@ -34,4 +34,11 @@ final List<Game> games = [
     routeName: '/idea-generator',
     icon: Icons.lightbulb_outline,
   ),
+  Game(
+    title: 'SeQuences',
+    description: 'Crea ed esegui sequenze a tempo di passi ripetuti',
+    imagePath: 'assets/images/sequences.png',
+    routeName: '/sequences',
+    icon: Icons.timer_outlined,
+  ),
 ];
